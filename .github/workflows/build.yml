@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: xcode-27-xlarge
+    runs-on: macos-26-xlarge
     timeout-minutes: 350
 
     steps:

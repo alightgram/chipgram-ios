@@ -22,11 +22,10 @@ jobs:
           PREFERRED=$(cat versions.json | python3 -c 'import json,sys;obj=json.load(sys.stdin);print(obj["xcode"]);')
           if [ -d "/Applications/Xcode_${PREFERRED}.app" ]; then
             CHOICE="/Applications/Xcode_${PREFERRED}.app"
-          else
+          elif ls -d /Applications/Xcode_27*.app >/dev/null 2>&1; then
             CHOICE=$(ls -d /Applications/Xcode_27*.app 2>/dev/null | sort -V | tail -1)
-          fi
-          if [ -z "$CHOICE" ]; then
-            CHOICE=$(xcode-select -p)
+          else
+            CHOICE=$(xcode-select -p | sed 's#/Contents/Developer$##')
           fi
           echo "Using Xcode at: $CHOICE"
           sudo xcode-select -s "$CHOICE/Contents/Developer"

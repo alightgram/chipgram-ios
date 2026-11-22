@@ -58,7 +58,7 @@ jobs:
           # tracked script (Bazel genrules invoke them directly).
           git ls-files -z '*.sh' | xargs -0 chmod +x || true
           git ls-files -z | xargs -0 grep -Il '^#!' 2>/dev/null | tr '\n' '\0' | xargs -0 chmod +x || true
-          ls -l submodules/ffmpeg/build-ffmpeg-bazel.sh
+          ls -l submodules/ffmpeg/Sources/FFMpeg/build-ffmpeg-bazel.sh
 
       - name: Create canonical source directory
         run: |

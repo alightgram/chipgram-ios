@@ -628,7 +628,7 @@ func initializedNetwork(accountId: AccountRecordId, arguments: NetworkInitializa
             }
             
             for (id, ips) in seedAddressList {
-                context.setSeedAddressSetForDatacenterWithId(id, seedAddressSet: MTDatacenterAddressSet(addressList: ips.map { MTDatacenterAddress(ip: $0, port: 443, preferForMedia: false, restrictToTcp: false, cdn: false, preferForProxy: false, secret: nil) }))
+                context.setSeedAddressSetForDatacenterWithId(id, seedAddressSet: MTDatacenterAddressSet(addressList: ips.map { MTDatacenterAddress(ip: $0, port: 2398, preferForMedia: false, restrictToTcp: false, cdn: false, preferForProxy: false, secret: nil) }))
             }
             
             context.keychain = keychain
@@ -659,7 +659,8 @@ func initializedNetwork(accountId: AccountRecordId, arguments: NetworkInitializa
             #endif
             
             if !supplementary {
-                context.setDiscoverBackupAddressListSignal(MTBackupAddressSignals.fetchBackupIps(testingEnvironment, currentContext: context, additionalSource: wrappedAdditionalSource, phoneNumber: phoneNumber, mainDatacenterId: datacenterId))
+                // ChipGram: never fall back to Telegram's official backup datacenter list; the client talks only to the telesrv instance.
+                // context.setDiscoverBackupAddressListSignal(MTBackupAddressSignals.fetchBackupIps(testingEnvironment, currentContext: context, additionalSource: wrappedAdditionalSource, phoneNumber: phoneNumber, mainDatacenterId: datacenterId))
                 let externalRequestVerificationStream = arguments.externalRequestVerificationStream
                 context.setExternalRequestVerification({ nonce in
                     return MTSignal(generator: { subscriber in
